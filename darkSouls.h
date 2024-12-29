@@ -2,7 +2,7 @@
 #define DARKSOULS_H_INCLUDED
 #include <iostream>
 
-#define first(G) G->first
+#define first(G) G.first
 #define locationName(V) V->locationName
 #define boss(V) V->boss
 #define defeated(V) V->defeated
@@ -23,7 +23,7 @@ struct vertex{
     string locationName;
     string boss;
     bool defeated;
-    bool position
+    bool position;
     bool bonfire;
     adrEdge firstEdge;
     adrVertex next;
@@ -39,19 +39,21 @@ struct graph {
     adrVertex first;
 };
 
-void createVertex(string locationName, string boss, adrVertex &v);
+void createLocation(string locationName, string boss, adrVertex &v);
 void initGraph(graph &G);
-void addVertex(graph &G, string newLocation, string newBoss);
+void addLocation(graph &G, string newLocation, string newBoss);
 void buildGraph(graph &G);
 bool checkVertices(graph &G);
-void showVertex(graph G);
-bool haveVisited(graph G);
-adrVertex searchVertex(graph G, string locationName);
+void showLocation(graph G);
+bool haveLitBonfire(graph G);
+adrVertex searchLocation(graph G, string locationName);
+adrVertex searchNextBoss(graph G, string bossName);
 void createEdge(graph &G, string locationName, string destLocation);
-void connectVertex(graph G);
+void connectLocation(graph G);
 adrVertex findPosition(graph G);
 void showPosition(graph G);
 void findShortestPath(graph G, string strLocation, string tgtLocation);
+void continuePath(graph G, string strLocation, string lastBossDefeated);
 void visitLocation(graph G, string tgtLocation);
-
+void defeatTheGame(graph G);
 #endif // DARKSOULS_H_INCLUDED

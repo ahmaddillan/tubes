@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1735392929 source:c:\benkyou, study me\cp\tubes\tubes\main.cpp
+	<iostream>
+	"darkSouls.h"
+
+1735392921 c:\benkyou, study me\cp\tubes\tubes\darksouls.h
+	<iostream>
+
+1735393843 source:c:\benkyou, study me\cp\tubes\tubes\darksouls.cpp
+	<iostream>
+	"darkSouls.h"
+
+1735445178 source:c:\users\dillan\documents\code\cpp\tubes\main.cpp
+	<iostream>
+	"darkSouls.h"
+
+1735392921 c:\users\dillan\documents\code\cpp\tubes\darksouls.h
+	<iostream>
+
+1735446127 source:c:\users\dillan\documents\code\cpp\tubes\darksouls.cpp
+	<iostream>
+	"darkSouls.h"
+
