@@ -21,14 +21,14 @@ int menu(){
 int main()
 {
     int select;
-    string bosses[11] = {"Bell Gargoyles", "Chaos Witch Quelaag", "Iron Golem",
-    "Ornstein & Smough", "Great Grey Wolf Sif", "Pinwheel", "The Bed of Chaos",
-    "Nito", "Four Kings", "Seath the Scaleless", "Gwyn Lord of Cinder"};
+    string bosses[11] = {"Bell_Gargoyles", "Chaos_Witch_Quelaag", "Iron_Golem",
+    "Ornstein_&_Smough", "Great_Grey_Wolf_Sif", "Pinwheel", "The_Bed_of_Chaos",
+    "Nito", "Four_Kings", "Seath_the_Scaleless", "Gwyn_Lord_of_Cinder"};
     graph G;
 
     initGraph(G);
     buildGraph(G);
-    //connectLocation(G);
+    connectLocation(G);
     position(first(G)) = true;
 
     do{
@@ -36,16 +36,18 @@ int main()
         switch(select){
             case 1:
                 //memberikan step menyelesaikan game
-
-                //defeatTheGame(G);
+                defeatTheGame(G);
                 break;
             case 2: {
                 //mencari bos berikutnya
 
-                string strLocation;
+                adrVertex pos = findPosition(G);
+                if (pos == NULL){
+                    cout << "[ERROR] Location is nowhere to be found.\n" << endl;
+                    break;
+                }
+                
                 string lastBossDefeated;
-                cout << "# Please enter your location right now: ";
-                cin >> strLocation;
                 cout << "# Who was the last boss you defeated? ";
                 cin >> lastBossDefeated;
                 bool bossFound = false;
@@ -55,6 +57,7 @@ int main()
                         for (int j = 0; j <= i; j++) {
                             adrVertex v = first(G);
                             while (v != NULL) {
+                                bonfire(v) = true;
                                 if (boss(v) == bosses[j]) {
                                     defeated(v) = true;
                                     break;
@@ -63,7 +66,7 @@ int main()
                             }
                         }
 
-                       // continuePath(G, strLocation, lastBossDefeated);
+                        continuePath(G, slocationName(pos), lastBossDefeated);
                         bossFound = true;
                         break;
                     }
@@ -76,12 +79,12 @@ int main()
             case 3: {
                 //mencari posisi player sekarang
 
-              //  adrVertex pos = findPosition(G);
-            //    if (pos != NULL){
-                 //   cout << "Your Position right now is in " << locationName(pos) << ".\n" <<endl;
-              //  }else {
-               //     cout << "You are nowhere to be found.\n" << endl;
-               // }
+                adrVertex pos = findPosition(G);
+                if (pos != NULL){
+                    cout << "Your Position right now is in " << locationName(pos) << ".\n" <<endl;
+                }else {
+                    cout << "You are nowhere to be found.\n" << endl;
+                }
                 break;
             }
             case 4: {
@@ -96,8 +99,8 @@ int main()
 
                 while (v != NULL){
                     if (locationName(v) == loc){
-                       // visitLocation(G, loc);
-                      //  locFound = true;
+                        visitLocation(G, loc);
+                        locFound = true;
                         break;
                     }
                     v = next(v);
@@ -110,34 +113,29 @@ int main()
             case 5: {
                 //mecari rute terpendek lokasi yang dicari posisi player sekarang
 
-                string strLocation;
+                adrVertex pos = findPosition(G);
+                if (pos == NULL){
+                    cout << "[ERROR] Location is nowhere to be found.\n" << endl;
+                    break;
+                }
+                
                 string endLocation;
-                cout << "# Please enter your location right now: ";
-                cin >> strLocation;
                 cout << "# Please enter where you're headed: ";
                 cin >> endLocation;
 
                 adrVertex v = first(G);
-                bool strFound = false, endFound = false;
+                bool endFound = false;
 
                 while (v != NULL){
-                    if (locationName(v) == strLocation){
-                        strFound = true;
-                        adrVertex temp = first(G);
-                        while (temp != NULL){
-                            if (locationName(temp) == endLocation){
-                                endFound = true;
-                               // findShortestPath(G, strLocation, endLocation);
-                                break;
-                            }
-                            temp = next(temp);
-                        }
+                    if (locationName(v) == endLocation){
+                        endFound = true;
+                        findShortestPath(G, locationName(pos), endLocation);
                         break;
                     }
                     v = next(v);
                 }
 
-                if (!strFound || !endFound){
+                if (!endFound){
                      cout << "[ERROR] Location is nowhere to be found.\n" << endl;
                 }
                 break;
