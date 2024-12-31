@@ -35,18 +35,15 @@ int main()
         select = menu();
         switch(select){
             case 1:
-                //memberikan step menyelesaikan game
                 defeatTheGame(G);
                 break;
             case 2: {
-                //mencari bos berikutnya
-
                 adrVertex pos = findPosition(G);
                 if (pos == NULL){
                     cout << "[ERROR] Location is nowhere to be found.\n" << endl;
                     break;
                 }
-                
+
                 string lastBossDefeated;
                 cout << "# Who was the last boss you defeated? ";
                 cin >> lastBossDefeated;
@@ -66,7 +63,7 @@ int main()
                             }
                         }
 
-                        continuePath(G, slocationName(pos), lastBossDefeated);
+                        continuePath(G, locationName(pos), lastBossDefeated);
                         bossFound = true;
                         break;
                     }
@@ -77,8 +74,6 @@ int main()
                 break;
             }
             case 3: {
-                //mencari posisi player sekarang
-
                 adrVertex pos = findPosition(G);
                 if (pos != NULL){
                     cout << "Your Position right now is in " << locationName(pos) << ".\n" <<endl;
@@ -88,8 +83,6 @@ int main()
                 break;
             }
             case 4: {
-                //mencari rute dari lokasi yang dicari
-
                 cout << "# Which location you want to visit?" << endl;
                 showLocation(G);
                 string loc;
@@ -111,14 +104,11 @@ int main()
                 break;
             }
             case 5: {
-                //mecari rute terpendek lokasi yang dicari posisi player sekarang
-
                 adrVertex pos = findPosition(G);
                 if (pos == NULL){
                     cout << "[ERROR] Location is nowhere to be found.\n" << endl;
                     break;
                 }
-                
                 string endLocation;
                 cout << "# Please enter where you're headed: ";
                 cin >> endLocation;
@@ -141,15 +131,11 @@ int main()
                 break;
             }
             case 6:
-                //menampilkan semua lokasi dan informasinya
-
                 cout << "~~~~~~~~~~~~~~~~|List of All Location|~~~~~~~~~~~~~~~~" << endl;
                 showLocation(G);
                 cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" << endl;
                 break;
             case 0:
-                //menyelesaikan program
-
                 cout << "Bye~" << endl;
                 break;
             default:
